@@ -44,8 +44,8 @@ namespace YCOMMON {
 			//初始化服务器
 			//use_ssl----------true:启用ssl；false:不启用ssl
 			//use_raw_data-----true:使用原始数据包格式；false:使用（2字节长度+数据内容）打包格式
-			bool create(bool use_ssl = false,bool use_raw_data = false);
-			//启动服务器,默认io线程数位cpu个数*2
+			bool create(bool use_ssl = false,bool use_raw_data = true);
+			//启动服务器,-1表示默认io线程数位cpu个数*2
 			void start_server(int thread_num = -1);
 			//停止服务器
 			void stop_server();
