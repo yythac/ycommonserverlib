@@ -11,6 +11,12 @@
     4, support SSL connection
     5, support the original data packet and (2 bytes length + data content) data packet format
     6, can quickly generate a basic full-featured network server program
+    
+    include---------------include files of ycommonserverlib
+    lib-------------------lib files of ycommonserverlib
+    YEchoServer-----------A sample of simple echo server using ycommonserverlib
+    EchoClient------------A client program using to test YEchoServer
+    TestConfig------------A sample program using config file of ycommonserverlib
 
     是一个使用boost库、openssl库、poco库及c++ 11生成的跨平台网络服务器框架，但是使用它并不需要安装这些库。
 
@@ -22,3 +28,9 @@
     4、支持SSL连接
     5、支持原始数据包及（2字节长度+数据内容）数据包格式
     6、能快速生成基本功能齐全的网络服务器程序
+
+    include---------------ycommonserverlib库的头文件
+    lib-------------------ycommonserverlib库的库文件
+    YEchoServer-----------一个使用ycommonserverlib生成的echo服务器
+    EchoClient------------用于测试echo服务器的客户端
+    TestConfig------------一个使用ycommonserverlib配置文件的例子
