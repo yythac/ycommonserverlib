@@ -9,7 +9,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestConfig", "TestConfig\Te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EchoClient", "EchoClient\EchoClient.vcxproj", "{AE65CF3B-7F29-4164-9965-06E3CBC7597F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yftp", "..\yftpserver\jni\yftp\yftp.vcxproj", "{2FA5E4C3-0482-433A-A84F-1A48341B2DFA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yftp", "yftpserver\jni\yftp\yftp.vcxproj", "{2FA5E4C3-0482-433A-A84F-1A48341B2DFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
