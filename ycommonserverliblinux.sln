@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ycommonserverliblinux", "ycommonserverliblinux\ycommonserverliblinux.vcxproj", "{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yechoserverlinux", "D:\softwares\PortableGit\ycommonserverlib\YEchoServer\yechoserverlinux.vcxproj", "{41940FC4-C0F1-4265-9227-D9ADCF278B80}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ycommonserverlinux", "YCommonServer\ycommonserverlinux.vcxproj", "{DC995C12-159B-41C1-A4A9-6B7FB832AF67}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yftpserverlinux", "D:\softwares\PortableGit\yftpserver\yftpserverlinux\yftpserverlinux\yftpserverlinux.vcxproj", "{275B4271-9A7E-4432-9649-3E0D69133734}"
 EndProject
@@ -23,14 +19,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Debug|x64.ActiveCfg = Debug|x64
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Debug|x64.Build.0 = Debug|x64
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Debug|x86.ActiveCfg = Debug|Win32
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Debug|x86.Build.0 = Debug|Win32
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Release|x64.ActiveCfg = Release|x64
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Release|x64.Build.0 = Release|x64
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Release|x86.ActiveCfg = Release|Win32
-		{2F9D9B1F-72AE-4366-9D83-3B4881D0E631}.Release|x86.Build.0 = Release|Win32
 		{41940FC4-C0F1-4265-9227-D9ADCF278B80}.Debug|x64.ActiveCfg = Debug|x64
 		{41940FC4-C0F1-4265-9227-D9ADCF278B80}.Debug|x64.Build.0 = Debug|x64
 		{41940FC4-C0F1-4265-9227-D9ADCF278B80}.Debug|x86.ActiveCfg = Debug|Win32
@@ -39,14 +27,6 @@ Global
 		{41940FC4-C0F1-4265-9227-D9ADCF278B80}.Release|x64.Build.0 = Release|x64
 		{41940FC4-C0F1-4265-9227-D9ADCF278B80}.Release|x86.ActiveCfg = Release|Win32
 		{41940FC4-C0F1-4265-9227-D9ADCF278B80}.Release|x86.Build.0 = Release|Win32
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Debug|x64.ActiveCfg = Debug|x64
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Debug|x64.Build.0 = Debug|x64
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Debug|x86.ActiveCfg = Debug|Win32
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Debug|x86.Build.0 = Debug|Win32
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Release|x64.ActiveCfg = Release|x64
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Release|x64.Build.0 = Release|x64
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Release|x86.ActiveCfg = Release|Win32
-		{DC995C12-159B-41C1-A4A9-6B7FB832AF67}.Release|x86.Build.0 = Release|Win32
 		{275B4271-9A7E-4432-9649-3E0D69133734}.Debug|x64.ActiveCfg = Debug|x64
 		{275B4271-9A7E-4432-9649-3E0D69133734}.Debug|x64.Build.0 = Debug|x64
 		{275B4271-9A7E-4432-9649-3E0D69133734}.Debug|x86.ActiveCfg = Debug|Win32
