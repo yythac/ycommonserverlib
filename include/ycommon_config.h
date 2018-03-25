@@ -1,7 +1,8 @@
 #pragma once
 #include "ycommon.h"
-
+#include <memory>
 #include <string>
+
 namespace YCOMMON {
 	namespace CONFIG {
 		typedef enum class tag_config_file_type
@@ -52,6 +53,7 @@ namespace YCOMMON {
 
 
 		private:
+
 			void *common_config_{ nullptr };
 
 			std::string config_file_{ "" };

@@ -6,9 +6,6 @@
 #ifdef SERVER_APP
 
 #include "ycommon_server_app.h"
-#include <iostream>
-
-
 
 class EchoServerApp : public YCOMMON::YSERVER::ycommon_server_app
 {
@@ -27,12 +24,12 @@ protected:
 		pass = "test";
 		return pass;
 	}
-	/*
+	
 	virtual bool on_accept(void* conn) override
 	{
 		YINFO_OUT(L"Connection:%X arrived", conn);
 		return true;
-	}*/
+	}
 	virtual void on_connect(void* conn) override
 	{
 		YINFO_OUT(L"Connection:%X connected", conn);
@@ -200,7 +197,12 @@ int main(int argc, const char* argv[])
 		YINFO_OUT("Echo Server is running,Please press any key to exit....");
 		//强制保存日志
 		YLOG_FLUSH();
-		_getch();
+		YINFO_OUT("Press 'q'+ Enter to exit......");
+		while (true)
+		{
+			if (getchar() == 'q')
+				break;
+		}
 	}
 	else
 	{

@@ -5,12 +5,14 @@
 
 #pragma once
 
-#include "targetver.h"
+//#include "targetver.h"
 
 #include <stdio.h>
-#include <tchar.h>
-#include <conio.h>
+//#include <tchar.h>
+//#include <conio.h>
 #include <algorithm>
+#include <iostream>
+#include <string.h>
 
 #define SERVER_APP
 

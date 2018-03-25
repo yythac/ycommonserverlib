@@ -14,8 +14,10 @@
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 
+#ifdef WIN32
 #pragma comment(lib,"libeay32.lib")
 #pragma comment(lib, "ssleay32.lib")
+#endif
 
 enum { max_length = 1024 };
 
@@ -208,7 +210,7 @@ int main(int argc, char* argv[])
 			ctx.use_certificate_chain_file("client_certs/server.crt");
 			ctx.use_private_key_file("client_certs/server.key", boost::asio::ssl::context::pem);
 			ctx.use_tmp_dh_file("client_certs/dh1024.pem");
-			client<boost::asio::ssl::stream<boost::asio::ip::tcp::socket>> c(io_service, ctx, iterator);
+			client<boost::asio::ssl::stream<boost::asio::ip::tcp::socket> > c(io_service, ctx, iterator);
 			io_service.run();
 		}
 		else

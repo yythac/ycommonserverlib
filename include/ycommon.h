@@ -83,7 +83,7 @@
 namespace YCOMMON {
 	namespace GLOBAL {
 		//本dll中分配的内存必须调用该函数释放
-		YCOMMONSERVERLIB_API void ycommon_free(void *p);
+		YCOMMONSERVERLIB_API void ycommon_free(char *p);
 	}
 	namespace LOG {
 

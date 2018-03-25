@@ -18,7 +18,7 @@
         <Transport>SSH</Transport>
         <UserName>root</UserName>
       </RemoteHost>
-      <LocalDirectory>D:\Users\qlibm\workspace\YFtpServer\jni\yftp</LocalDirectory>
+      <LocalDirectory>$(ProjectDir)</LocalDirectory>
       <RemoteDirectory>/home/tester/myprojects/yftpserver</RemoteDirectory>
       <FileMasks>
         <string>*.cpp</string>
@@ -40,7 +40,7 @@
     <RemoveRemoteDirectoryOnClean>false</RemoveRemoteDirectoryOnClean>
   </Project>
   <Build xsi:type="com.visualgdb.build.make">
-    <MakeFilePathRelativeToSourceDir>Makefile</MakeFilePathRelativeToSourceDir>
+    <MakeFilePathRelativeToSourceDir>../../../../yftpserver/jni/yftp/Makefile</MakeFilePathRelativeToSourceDir>
     <MakeConfigurationName>Release</MakeConfigurationName>
     <AdditionalMakeArguments />
     <Toolchain>
