@@ -1,0 +1,22 @@
+1、文件说明
+YCommonServerLib.dll------------------------网络服务器框架动态库文件
+YEchoServer.exe-----------------------------使用网络服务器框架的echo服务器
+yftpserver.exe------------------------------使用网络服务器框架的ftp服务器
+YCommonServer.exe---------------------------静态链接网络服务器框架的echo服务器
+EchoClient.exe------------------------------用于测试echo服务器的客户端
+TestConfig.exe------------------------------测试服务器框架配置文件功能的测试程序
+yftpserver.properties-----------------------yftpserver.exe的配置文件
+YEchoServer.properties----------------------YEchoServer.exe的配置文件
+YCommonServer.properties--------------------YCommonServer.exe的配置文件
+server_certs--------------------------------当服务端启用ssl连接时服务器秘钥文件
+client_certs--------------------------------当客户端启用ssl连接时客户端秘钥文件
+
+2、测试说明
+
+2.1 根据需要修改配置文件yftpserver.properties，运行yftpserver.exe，用ftp客户端（比如FileZilla）
+连接服务器进行测试
+2.2 修改配置文件YEchoServer.properties中的server.use_ssl = 0，运行YEchoServer.exe，运行
+"EchoClient 服务器ip 服务器端口 0"，测试使用普通连接echo服务器。
+2.3 修改配置文件YEchoServer.properties中的server.use_ssl = 1，运行YEchoServer.exe，运行
+"EchoClient 服务器ip 服务器端口 1"，测试使用ssl连接echo服务器。
+2.4 运行TestConfig.exe测试配置功能

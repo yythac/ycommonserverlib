@@ -1,0 +1,21 @@
+1、文件说明
+yechoserver-----------------------------使用网络服务器框架的echo服务器
+yftpserver------------------------------使用网络服务器框架的ftp服务器
+ycommonserver---------------------------静态链接网络服务器框架的echo服务器
+echoclient------------------------------用于测试echo服务器的客户端
+testconfig------------------------------测试服务器框架配置文件功能的测试程序
+yftpserver.properties-----------------------yftpserver的配置文件
+yechoserver.properties----------------------yechoserver的配置文件
+ycommonserver.properties--------------------ycommonserver的配置文件
+server_certs--------------------------------当服务端启用ssl连接时服务器秘钥文件
+client_certs--------------------------------当客户端启用ssl连接时客户端秘钥文件
+
+2、测试说明
+
+2.1 根据需要修改配置文件yftpserver.properties，运行yftpserver，用ftp客户端（比如FileZilla）
+连接服务器进行测试
+2.2 修改配置文件yechoserver.properties中的server.use_ssl = 0，运行yechoserver，运行
+"echoclient 服务器ip 服务器端口 0"，测试使用普通连接echo服务器。
+2.3 修改配置文件yechoserver.properties中的server.use_ssl = 1，运行yechoserver，运行
+"echoclient 服务器ip 服务器端口 1"，测试使用ssl连接echo服务器。
+2.4 运行testconfig测试配置功能
