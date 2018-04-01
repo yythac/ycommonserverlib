@@ -145,17 +145,16 @@
     <ClInclude Include="yftpserver/jni/yftp/client_manager.h" />
     <ClInclude Include="yftpserver/jni/yftp/client_node.h" />
     <ClInclude Include="yftpserver/jni/yftp/common.h" />
-    <ClInclude Include="yftpserver/jni/yftp/connection.hpp" />
     <ClInclude Include="yftpserver/jni/yftp/conversion.h" />
     <ClInclude Include="yftpserver/jni/yftp/error_code.h" />
     <ClInclude Include="yftpserver/jni/yftp/ftpserver_native.h" />
     <ClInclude Include="yftpserver/jni/yftp/ftp_server.h" />
-    <ClInclude Include="yftpserver/jni/yftp/reply.hpp" />
-    <ClInclude Include="yftpserver/jni/yftp/request_parser.hpp" />
-    <ClInclude Include="yftpserver/jni/yftp/server.hpp" />
     <ClInclude Include="yftpserver/jni/yftp/stdafx.h" />
     <ClInclude Include="yftpserver/jni/yftp/user_manager.h" />
     <ClInclude Include="yftpserver/jni/yftp/user_node.h" />
+    <ClInclude Include="yftpserver\jni\yftp\connection.h" />
+    <ClInclude Include="yftpserver\jni\yftp\reply.h" />
+    <ClInclude Include="yftpserver\jni\yftp\server.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
