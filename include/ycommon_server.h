@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ycommon.h"
+#include "ycommon_socket.h"
 #include <string>
 
 /*
@@ -12,19 +13,10 @@
 
 */
 
-#if defined(WIN32) || defined(__CYGWIN__)
-#if !defined(SOCKET)
-#include <winsock2.h>
-#endif
-typedef SOCKET y_socket_type;
-#else
-typedef int y_socket_type;
-#endif
-
 namespace YCOMMON {
 	namespace YSERVER {
 
-		/// File format types.
+		//SSL秘钥文件类型
 		typedef enum class tag_key_file_format
 		{
 			/// ASN.1 file.
@@ -42,8 +34,7 @@ namespace YCOMMON {
 			virtual ~ycommon_server();
 
 			//初始化服务器
-			//use_ssl----------true:启用ssl；false:不启用ssl
-			//use_raw_data-----true:使用原始数据包格式；false:使用（2字节长度+数据内容）打包格式
+			//use_ssl----------true:启用ssl；false:不启用ssl;use_raw_data-----true:使用原始数据包格式；false:使用（2字节长度+数据内容）打包格式
 			bool create(bool use_ssl = false,bool use_raw_data = true);
 			//启动服务器,-1表示默认io线程数位cpu个数*2
 			void start_server(int thread_num = -1);
@@ -54,7 +45,10 @@ namespace YCOMMON {
 
 			//设置服务器监听端口和ip
 			bool set_server_addr(unsigned short port, const std::string& ip = "0.0.0.0");
-			
+
+			//设置ssl连接延迟握手，用于显示ftps这种情况，一开始是普通连接，在后续处理中根据需要切换成ssl连接
+			//要用这种方式在调用create时必须传入use_ssl为1,并且设置好ssl连接参数
+			bool set_delay_ssl(bool delay);
 			//是否使用原始数据包
 			bool is_use_raw_data();
 			//是否作为SSL服务器
@@ -66,45 +60,34 @@ namespace YCOMMON {
 
 			//设置工作线程池参数
 			//设置线程池最小线程数
-			bool set_pool_min_thread_num(unsigned int  num);
+			static bool set_pool_min_thread_num(unsigned int  num);
 			//设置线程池最大线程数
-			bool set_pool_max_thread_num(unsigned int num);
+			static bool set_pool_max_thread_num(unsigned int num);
 
 			//获取线程池最小线程数
-			unsigned int get_pool_min_thread_num();
+			static unsigned int get_pool_min_thread_num();
 			//获取线程池最大线程数
-			unsigned int get_pool_max_thread_num();
+			static unsigned int get_pool_max_thread_num();
 
-			//异步发送数据，不等待，立即返回
-			bool async_send_data(void* conn, const char* pdata, int len);
-			//同步发送数据，等待数据发完才返回
-			bool send_data(void* conn, const char* pdata, int len);
-
-			//结束收发数据
-			void shutdown(void* conn);
-			//关闭连接
-			void disconnect(void* conn);
 
 			/////////////////////下面为深度定制辅助功能//////////////////////////////////////////
-			//获取boost库socket指针（返回boost::asio::ip::tcp::socket* 或者<boost::asio::ssl::stream<boost::asio::ip::tcp::socket>*）
-			void *boost_handle(void* conn);
 			//获取boost::asio::ssl::context*
-			void *boost_ssl_context(void* conn);
-			//获取平台相关的socket句柄
-			y_socket_type native_handle(void* conn);
+			void *boost_ssl_context();
+
 
 		protected:
 			//收到客户端连接后回调函数,返回true表示接受连接，返回false表示断开连接
-			virtual bool on_accept(void* conn) { return true; }
+			virtual bool on_accept(i_ycommon_socket* conn) { return true; }
 			//连接已经建立成功
-			virtual void on_connect(void* conn) { }
+			virtual void on_connect(i_ycommon_socket* conn) { }
 			//数据处理回调函数,重载该函数用于处理数据包
 			//客户端发送的包为（2字节长度+数据内容）
-			//这里收到的数据为 数据内容，已经自动根据数据包长度收到完整的数据，2字节长度已去除
-			virtual bool on_process_data(void* conn, const char* pdata, int len) { return true; }
+			//这里收到的数据为 数据内容，已经自动根据数据包长度收到完整的数据，2字节长度已去除，返回值目前没作用
+			virtual bool on_process_data(i_ycommon_socket* conn, const char* pdata, int len) { return true; }
 			//连接关闭回调函数，重载该函数用于连接关闭后的清理工作
-			virtual void on_close(void* conn) {}
+			virtual void on_close(i_ycommon_socket* conn) {}
 
+			//获取SSL秘钥文件解密密码的回调函数
 			virtual std::string& get_key_file_password() const
 			{
 				static std::string pass("");

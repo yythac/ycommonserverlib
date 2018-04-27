@@ -29,6 +29,11 @@ namespace ftp {
 		 ***************************************/
 
 		data_port_range ftp_server::data_port_range_ = { 0 };
+#ifdef SERVER_APP
+		boost::asio::ssl::context ftp_server::context_(boost::asio::ssl::context::sslv23);
+
+		YCOMMON::YSERVER::ycommon_server_app *ftp_server::server_app_ = nullptr;
+#endif
 
 		ftp_server::ftp_server(void)
 		{
@@ -41,6 +46,11 @@ namespace ftp {
 			this->is_allow_anonymous_ = false;
 
 			srand((unsigned)time(nullptr));
+#ifdef SERVER_APP
+			context_.set_options(
+				boost::asio::ssl::context::default_workarounds
+				| boost::asio::ssl::context::no_sslv2);
+#endif
 
 		}
 
@@ -133,7 +143,8 @@ namespace ftp {
 			return true;
 
 		}
-		bool ftp_server::end_work(boost::asio::ip::tcp::socket& ctrl_socket)
+
+		bool ftp_server::end_work(YCOMMON::YSERVER::i_ycommon_socket& ctrl_socket)
 		{
 			sp_client_node client = user_manager_.find_client(ctrl_socket);
 			if (client != nullptr)
@@ -142,7 +153,8 @@ namespace ftp {
 			}
 			return true;
 		}
-		bool ftp_server::process_command(boost::asio::ip::tcp::socket& ctrl_socket, char *pdata, int datalen, reply& ftpreply)
+
+		bool ftp_server::process_command(YCOMMON::YSERVER::i_ycommon_socket& ctrl_socket, char *pdata, int datalen, reply& ftpreply)
 		{
 			bool ret = true;
 
@@ -335,10 +347,35 @@ namespace ftp {
 					L" MDTM\r\n"
 					L" SIZE\r\n"
 					L" UTF8\r\n"
+					L" AUTH TLS\r\n"
+					L" PBSZ\r\n"
+					L" PROT\r\n"
 					L"211 End\r\n");
 
 				break;
 
+			}
+			case commands::PBSZ:
+			{
+				if (cmd.args.empty())
+				{
+					ftpreply.create(501, L"Syntax error in arguments.");
+				}
+				else
+				{
+					ftpreply.create(200, (boost::wformat(L"PROTECTION BUFFER SIZE set to %s") % cmd.args).str());
+				}
+				break;
+			}
+			case commands::PROT:
+			{
+				ret = client->process_prot_cmd(cmd.args, ftpreply);
+				break;
+			}
+			case commands::AUTH:
+			{
+				ret = client->process_auth_cmd(cmd.args, ftpreply);
+				break;
 			}
 			case commands::MDTM:
 			{

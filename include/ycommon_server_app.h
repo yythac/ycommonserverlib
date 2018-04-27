@@ -74,39 +74,31 @@ namespace YCOMMON {
 		public:
 			ycommon_server_app();
 			virtual ~ycommon_server_app();
-
+			//初始化应用程序，并调用内部main函数
 			int run(int argc, char** argv);
-			/// Runs the application by performing additional initializations
-			/// and calling the main() method.
 
+			//初始化应用程序，并调用内部main函数
 			int run(int argc, wchar_t** argv);
-			/// Runs the application by performing additional initializations
-			/// and calling the main() method.
-			///
-			/// This Windows-specific version of init is used for passing
-			/// Unicode command line arguments from wmain().
+
 		protected:
-			//应用程序初始化，返回0表示继续执行，返回非0表示退出
+
+			//在内部服务器初始化开始时调用，用于应用程序初始化，返回0表示继续执行，返回非0表示退出
+			virtual int init(const std::vector<std::string>& args) { return 0; }
+			//在内部服务器初始化结束时调用，用于应用程序初始化，返回0表示继续执行，返回非0表示退出
 			virtual int main(const std::vector<std::string>& args) { return 0; }
 
-			///返回的char*指针内存在dll内分配，需要调用ycommon_free释放
-			char* get_string(const std::string& key, const std::string& defaultValue) const;
-			/// If a property with the given key exists, returns the property's string value,
-			/// otherwise returns the given default value.
-			/// If the value contains references to other properties (${<property>}), these
-			/// are expanded.
-			int get_int(const std::string& key, int defaultValue) const;
-			/// If a property with the given key exists, returns the property's int value,
-			/// otherwise returns the given default value.
-			/// Throws a SyntaxException if the property can not be converted
-			/// to an int.
-			/// Numbers starting with 0x are treated as hexadecimal.
-			/// If the value contains references to other properties (${<property>}), these
-			/// are expanded.
+			//获取键值为key的字符串型配置，默认值为defaultValue，section为配置文件为ini格式时的节，返回的char*指针内存在dll内分配，需要调用ycommon_free释放
+			char* get_string(const std::string& key, const std::string& defaultValue, const std::string& section = "") const;
+
+			//获取键值为key的整数型配置，默认值为defaultValue，section为配置文件为ini格式时的节
+			int get_int(const std::string& key, int defaultValue, const std::string& section = "") const;
+
 			//设置默认参数，当没有配置文件时使用默认值
 			//设置服务器监听端口和ip
 			bool set_default_server_addr(unsigned short port, const std::string& ip = "0.0.0.0");
+			//设置是否启用SSL连接
 			bool set_default_is_use_ssl(bool is_use_ssl);
+			//设置是否用原始数据包格式
 			bool set_default_is_use_raw_data(bool is_use_raw_data);
 
 		private:

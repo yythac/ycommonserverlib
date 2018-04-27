@@ -6,17 +6,23 @@
 #ifdef SERVER_APP
 
 #include "ycommon_server_app.h"
-
 class EchoServerApp : public YCOMMON::YSERVER::ycommon_server_app
+#else
+
+#include "ycommon_server.h"
+class EchoServer : public YCOMMON::YSERVER::ycommon_server
+#endif
 {
 
 protected:
 
+#ifdef SERVER_APP
 	virtual int main(const std::vector<std::string>& args)
 	{
 		YINFO_OUT("Entering main......");
 		return 0;
 	}
+#endif
 	//返回服务器私钥密码
 	virtual std::string& get_key_file_password() const override
 	{
@@ -25,12 +31,12 @@ protected:
 		return pass;
 	}
 	
-	virtual bool on_accept(void* conn) override
+	virtual bool on_accept(YCOMMON::YSERVER::i_ycommon_socket* conn) override
 	{
 		YINFO_OUT(L"Connection:%X arrived", conn);
 		return true;
 	}
-	virtual void on_connect(void* conn) override
+	virtual void on_connect(YCOMMON::YSERVER::i_ycommon_socket* conn) override
 	{
 		YINFO_OUT(L"Connection:%X connected", conn);
 		return;
@@ -38,68 +44,25 @@ protected:
 	//数据处理回调函数,重载该函数用于处理数据包
 	//客户端发送的包为（2字节长度+数据内容）
 	//这里收到的数据为 数据内容，已经自动根据数据包长度收到完整的数据，2字节长度已去除
-	virtual bool on_process_data(void* conn, const char* pdata, int len) override
+	virtual bool on_process_data(YCOMMON::YSERVER::i_ycommon_socket* conn, const char* pdata, int len) override
 	{
 		//		YWRITE_LOG(yinfo, "Connection:%X recv data,len:%d", conn,len);
-		send_data(conn, pdata, len);
+		conn->i_send_data(pdata, len);
 		return true;
-		//		shutdown(conn);
-		//		disconnect(conn);
+
 	}
 	//连接关闭回调函数，重载该函数用于连接关闭后的清理工作
-	virtual void on_close(void* conn) override
+	virtual void on_close(YCOMMON::YSERVER::i_ycommon_socket* conn) override
 	{
 		YINFO_OUT("Connection:%X disconnect", conn);
 	}
 
 };
+#ifdef SERVER_APP
 
 YCOMMON_SERVER_MAIN(EchoServerApp)
+
 #else
-#include "ycommon_server.h"
-
-class EchoServer : public YCOMMON::YSERVER::ycommon_server
-{
-
-protected:
-
-	
-	//返回服务器私钥密码
-	virtual std::string& get_key_file_password() const override
-	{
-		static std::string pass; //不能用临时变量，必须用静态，或类成员变量
-		pass = "test";
-		return pass;
-	}
-
-	virtual bool on_accept(void* conn) override
-	{
-		YINFO_OUT(L"Connection:%X arrived", conn);
-		return true;
-	}
-	virtual void on_connect(void* conn) override
-	{
-		YINFO_OUT(L"Connection:%X connected", conn);
-		return;
-	}
-	//数据处理回调函数,重载该函数用于处理数据包
-	//客户端发送的包为（2字节长度+数据内容）
-	//这里收到的数据为 数据内容，已经自动根据数据包长度收到完整的数据，2字节长度已去除
-	virtual bool on_process_data(void* conn, const char* pdata, int len) override
-	{
-//		YINFO_OUT("Connection:%X recv data,len:%d", conn,len);
-		send_data(conn, pdata, len);
-		return true;
-//		shutdown(conn);
-//		disconnect(conn);
-	}
-	//连接关闭回调函数，重载该函数用于连接关闭后的清理工作
-	virtual void on_close(void* conn) override
-	{
-		YINFO_OUT("Connection:%X disconnect", conn);
-	}
-};
-
 
 int main(int argc, const char* argv[])
 {
