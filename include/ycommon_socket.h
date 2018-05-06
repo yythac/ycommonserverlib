@@ -19,9 +19,9 @@ namespace YCOMMON {
 		public:
 			//开始ssl握手
 			virtual bool i_handshake() = 0;
-			//异步发送数据，不等待，立即返回
-			virtual bool i_async_send_data(const char* pdata, int len) = 0;
 			//同步发送数据，等待数据发完才返回
+			virtual bool i_sync_send_data(const char* pdata, int len) = 0;
+			//异步发送数据，不等待，立即返回
 			virtual bool i_send_data(const char* pdata, int len) = 0;
 
 			//结束收发数据

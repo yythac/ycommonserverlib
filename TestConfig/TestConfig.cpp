@@ -44,7 +44,7 @@ int main()
 	}
 	if (my_config.save_configuration() == false)
 	{
-		YINFO_OUT("save config file:%s error!", "yftpserver.properties");
+		YINFO_OUT("save config file:%s error!", "testconfig.properties");
 		return -1;
 	}
 	YINFO_OUT("change \"ftp.server.allow_anonymous\" to %d", i);

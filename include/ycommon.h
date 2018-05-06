@@ -80,10 +80,30 @@
 //dll的当前版本
 #define YCOMMON_SERVER_LIB_VER	1.10
 
+
+//#define USE_BOOST_THREAD_POOL	
+#define USE_ADAPTABLE_THREAD_POOL
+//#define USE_POCO_THREAD_POOL
+//configuration
+#define INIT_THREADPOOL_THREAD_NUM		8
+#define MAX_THREADPOOL_THREAD_NUM		32
+
+#include <string>
+
 namespace YCOMMON {
 	namespace GLOBAL {
 		//本dll中分配的内存必须调用该函数释放
 		YCOMMONSERVERLIB_API void ycommon_free(char *p);
+
+		unsigned int get_pool_cur_thread_num();
+		unsigned int get_pool_min_thread_num();
+		unsigned int get_pool_max_thread_num();
+		//设置线程池最小线程数
+		bool set_pool_min_thread_num(unsigned int  num);
+		//设置线程池最大线程数
+		bool set_pool_max_thread_num(unsigned int num);
+		//创建线程池线程
+		bool start_thread_pool();
 	}
 	namespace LOG {
 
@@ -119,6 +139,9 @@ namespace YCOMMON {
 		YCOMMONSERVERLIB_API bool ylog_init(bool to_console, bool to_file, severity_level level);
 		//强制保存日志缓存到文件
 		YCOMMONSERVERLIB_API void ylog_flush();
+		//设置日志保存根目录
+		YCOMMONSERVERLIB_API void ylog_set_log_base_dir(const std::string& dir);
+		YCOMMONSERVERLIB_API void set_always_flush(bool b);
 
 		YCOMMONSERVERLIB_API void  log_level(severity_level level, const char * fmt0, ...);
 		YCOMMONSERVERLIB_API void  log_level(severity_level level, const wchar_t * fmt0, ...);
@@ -147,6 +170,8 @@ namespace YCOMMON {
 #define YLOG_INIT(x,y,level)		YCOMMON::LOG::ylog_init(x,y,level)	
 #define YWRITE_LOG(level,...)		YCOMMON::LOG::log_level(level,__VA_ARGS__)
 #define YLOG_FLUSH()				YCOMMON::LOG::ylog_flush()
+#define YLOG_SET_BASE_DIR(x)		YCOMMON::LOG::ylog_set_log_base_dir(x)
+#define YLOG_SET_ALWAYS_FLUSH(x)	YCOMMON::LOG::set_always_flush(x)
 
 
 #define YFATAL_OUT(...)		YWRITE_LOG(YCRITICAL_LEVEL,__VA_ARGS__) 

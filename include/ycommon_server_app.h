@@ -86,6 +86,17 @@ namespace YCOMMON {
 			virtual int init(const std::vector<std::string>& args) { return 0; }
 			//在内部服务器初始化结束时调用，用于应用程序初始化，返回0表示继续执行，返回非0表示退出
 			virtual int main(const std::vector<std::string>& args) { return 0; }
+			
+			//获取SSL秘钥文件解密密码的回调函数,默认从配置文件中获取
+			virtual std::string& get_key_file_password() const
+			{
+				static std::string pass("");
+				char* key_pass = get_string("server.key_file_password", "", "common server");
+				pass = key_pass;
+				YCOMMON::GLOBAL::ycommon_free(key_pass);
+				return pass;
+			}
+
 
 			//获取键值为key的字符串型配置，默认值为defaultValue，section为配置文件为ini格式时的节，返回的char*指针内存在dll内分配，需要调用ycommon_free释放
 			char* get_string(const std::string& key, const std::string& defaultValue, const std::string& section = "") const;

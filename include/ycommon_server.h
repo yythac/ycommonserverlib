@@ -58,7 +58,7 @@ namespace YCOMMON {
 			bool set_private_key_file(const std::string& key_file, key_file_format format = key_file_format::pem_file);
 			bool set_tmp_dh_file(const std::string& dh_file);
 
-			//设置工作线程池参数
+		/*	//设置工作线程池参数
 			//设置线程池最小线程数
 			static bool set_pool_min_thread_num(unsigned int  num);
 			//设置线程池最大线程数
@@ -68,7 +68,7 @@ namespace YCOMMON {
 			static unsigned int get_pool_min_thread_num();
 			//获取线程池最大线程数
 			static unsigned int get_pool_max_thread_num();
-
+		*/
 
 			/////////////////////下面为深度定制辅助功能//////////////////////////////////////////
 			//获取boost::asio::ssl::context*
